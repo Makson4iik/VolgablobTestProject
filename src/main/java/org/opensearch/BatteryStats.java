@@ -26,26 +26,25 @@ enum StatFunction{
 
 public class BatteryStats {
     public static void HandlePrint(String funcName, String filePath) throws Exception {
-        
-	StatFunction statFunc = StatFunction.ValidValueOf(funcName.toUpperCase());
+		StatFunction statFunc = StatFunction.ValidValueOf(funcName.toUpperCase());
 
-	if (statFunc == null) {
-		throw new Exception("Invalid function type: " + funcName);
-	}
-		
-  	ArrayList<Battery> batStats = parseBatteryInfoJson(readFileAsString(filePath));
-
-	switch (statFunc) {
-		case AVG:
-			avgBatStats(batStats);
-			break;
-		case MAX:
-			maxBatStats(batStats);
-			break;
-		case VALUES:
-			valuesBatStats(batStats);
-			break;
+		if (statFunc == null) {
+			throw new Exception("Invalid function type: " + funcName);
 		}
+
+		ArrayList<Battery> batStats = parseBatteryInfoJson(readFileAsString(filePath));
+
+		switch (statFunc) {
+			case AVG:
+				avgBatStats(batStats);
+				break;
+			case MAX:
+				maxBatStats(batStats);
+				break;
+			case VALUES:
+				valuesBatStats(batStats);
+				break;
+			}
     }
 	
     // values by 'host' field
