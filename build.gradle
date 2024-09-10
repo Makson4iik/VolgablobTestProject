@@ -1,0 +1,19 @@
+plugins {
+    id("java")
+}
+
+group = "org.opensearch"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.11.0'
+    testImplementation 'junit:junit:4.13.1'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
