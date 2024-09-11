@@ -27,18 +27,18 @@ public class RestStatBatteryAction extends BaseRestHandler {
     @Override
     public List<Route> routes() {
         return unmodifiableList(List.of(
-            new Route(POST, "/_plugins/stat_battery"))
+                new Route(POST, "/_plugins/stat_battery"))
         );
     }
 
     @Override
     protected RestChannelConsumer prepareRequest(RestRequest request, NodeClient client) throws IOException {
-        String func = request.hasContent()? request.contentParser().mapStrings().get("func"): "";
-        String index = request.hasContent()? request.contentParser().mapStrings().get("index"): "";
+        String func = request.hasContent() ? request.contentParser().mapStrings().get("func") : "";
+        String index = request.hasContent() ? request.contentParser().mapStrings().get("index") : "";
 
         return channel -> {
             try {
-                channel.sendResponse(StatBatteryService.buildResponse(func, index));
+                channel.sendResponse(StatBatteryService.buildResponse(func, index, client));
             } catch (final Exception e) {
                 channel.sendResponse(new BytesRestResponse(channel, e));
             }
