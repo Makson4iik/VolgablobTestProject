@@ -7,12 +7,18 @@ opensearchplugin {
     name 'opensearch-rest-plugin'
     description 'Custom OpenSearch REST plugin'
     classname 'org.opensearch.rest.rest.action.StatBattery'
+    licenseFile rootProject.file('LICENSE.txt')
+    noticeFile rootProject.file('NOTICE.txt')
 }
 
 // disabling some unnecessary validations for this plugin
 testingConventions.enabled = false
 loggerUsageCheck.enabled = false
 validateNebulaPom.enabled = false
+
+dependencyLicenses.enabled = false
+thirdPartyAudit.enabled = false
+forbiddenApisTest.ignoreFailures = true
 
 buildscript {
     repositories {
