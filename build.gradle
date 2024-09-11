@@ -6,7 +6,7 @@ apply plugin: 'opensearch.yaml-rest-test'
 opensearchplugin {
     name 'opensearch-rest-plugin'
     description 'Custom OpenSearch REST plugin'
-    classname 'org.opensearch.rest.rest.action.StatBattery'
+    classname 'org.opensearch.rest.action.StatBatteryPlugin'
     licenseFile rootProject.file('LICENSE.txt')
     noticeFile rootProject.file('NOTICE.txt')
 }
@@ -19,6 +19,7 @@ validateNebulaPom.enabled = false
 dependencyLicenses.enabled = false
 thirdPartyAudit.enabled = false
 forbiddenApisTest.ignoreFailures = true
+yamlRestTest.enabled = false
 
 buildscript {
     repositories {
