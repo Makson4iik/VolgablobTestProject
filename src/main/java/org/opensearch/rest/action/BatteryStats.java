@@ -1,4 +1,4 @@
-package org.opensearch;
+package org.opensearch.rest.action;
 
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -25,7 +25,7 @@ enum StatFunction{
 }
 
 public class BatteryStats {
-    public static void HandlePrint(String funcName, String filePath) throws Exception {
+    public static String HandleValue(String funcName, String filePath) throws Exception {
 		StatFunction statFunc = StatFunction.ValidValueOf(funcName.toUpperCase());
 
 		if (statFunc == null) {
@@ -36,19 +36,18 @@ public class BatteryStats {
 
 		switch (statFunc) {
 			case AVG:
-				avgBatStats(batStats);
-				break;
+				return Float.toString(avgBatStats(batStats));
 			case MAX:
-				maxBatStats(batStats);
-				break;
+				return Integer.toString(maxBatStats(batStats));
 			case VALUES:
-				valuesBatStats(batStats);
-				break;
-			}
+				return valuesBatStats(batStats);
+			default:
+				throw new Exception("Unexpected error in handle function type: " + funcName);
+		}
     }
 	
     // values by 'host' field
-    private static void valuesBatStats(ArrayList<Battery> batStats) {
+    private static String valuesBatStats(ArrayList<Battery> batStats) {
 		HashSet<String> hosts = new HashSet<>();
     	
     	for(Battery batStat : batStats){
@@ -58,11 +57,11 @@ public class BatteryStats {
     	    }
     	}
     	
-    	System.out.println(hosts);
+    	return hosts.toString();
     }
 
     // max by 'ups_adv_output_voltage' field
-    private static void maxBatStats(ArrayList<Battery> batStats) {
+    private static int maxBatStats(ArrayList<Battery> batStats) {
 		int max = Integer.MIN_VALUE;
 
 		for(Battery batStat : batStats){
@@ -73,11 +72,11 @@ public class BatteryStats {
 			}
 		}
 
-		System.out.println(max);
+		return max;
     }
 
     // avg by 'ups_adv_battery_run_time_remaining' field
-    private static void avgBatStats(ArrayList<Battery> batStats) {
+    private static float avgBatStats(ArrayList<Battery> batStats) {
 		long avg = 0;
 
 		for(Battery batStat : batStats){
@@ -88,7 +87,7 @@ public class BatteryStats {
 			}
 		}
 
-		System.out.println((float)avg/batStats.size());
+		return (float)avg/batStats.size();
     }
 
     private static ArrayList<Battery> parseBatteryInfoJson(String rawData){

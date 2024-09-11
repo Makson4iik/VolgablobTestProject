@@ -1,19 +1,39 @@
-plugins {
-    id("java")
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'opensearch.opensearchplugin'
+apply plugin: 'opensearch.yaml-rest-test'
+
+opensearchplugin {
+    name 'opensearch-rest-plugin'
+    description 'Custom OpenSearch REST plugin'
+    classname 'org.opensearch.rest.rest.action.StatBattery'
 }
 
-group = "org.opensearch"
-version = "1.0-SNAPSHOT"
+// disabling some unnecessary validations for this plugin
+testingConventions.enabled = false
+loggerUsageCheck.enabled = false
+validateNebulaPom.enabled = false
+
+buildscript {
+    repositories {
+        mavenLocal()
+        maven { url "https://aws.oss.sonatype.org/content/repositories/snapshots" }
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath "org.opensearch.gradle:build-tools:2.16.0"
+    }
+}
 
 repositories {
+    mavenLocal()
+    maven { url "https://aws.oss.sonatype.org/content/repositories/snapshots" }
     mavenCentral()
+    maven { url "https://plugins.gradle.org/m2/" }
 }
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.11.0'
-    testImplementation 'junit:junit:4.13.1'
-}
-
-tasks.test {
-    useJUnitPlatform()
 }

@@ -1,4 +1,4 @@
-package org.opensearch;
+package org.opensearch.rest.action;
 
 import com.google.gson.annotations.SerializedName;
 
