@@ -7,14 +7,11 @@
  */
 package org.opensearch.rest.action;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.opensearch.client.node.NodeClient;
 import org.opensearch.core.rest.RestStatus;
 import org.opensearch.rest.BytesRestResponse;
 import org.opensearch.rest.RestResponse;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class StatBatteryService {
@@ -31,6 +28,4 @@ public class StatBatteryService {
             return new BytesRestResponse(RestStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
-
-
 }

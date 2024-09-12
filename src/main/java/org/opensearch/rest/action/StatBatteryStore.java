@@ -12,7 +12,6 @@ import org.opensearch.client.node.NodeClient;
 import org.opensearch.index.query.QueryBuilders;
 import org.opensearch.search.SearchHit;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class StatBatteryStore {
@@ -34,8 +33,6 @@ public class StatBatteryStore {
             result.add(new Battery(
                     (Integer)hit.getSourceAsMap().get("ups_adv_output_load"),
                     (Integer)hit.getSourceAsMap().get("ups_adv_battery_temperature"),
-                    //java.sql.Timestamp.valueOf(formatter.format((String)hit.getSourceAsMap().get("@timestamp")).getTime()),
-                    new Timestamp(System.currentTimeMillis()),
                     (String)hit.getSourceAsMap().get("host"),
                     (Integer)hit.getSourceAsMap().get("ups_adv_battery_run_time_remaining"),
                     (Integer)hit.getSourceAsMap().get("ups_adv_output_voltage")

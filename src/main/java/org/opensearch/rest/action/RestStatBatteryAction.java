@@ -15,7 +15,6 @@ import org.opensearch.rest.RestRequest;
 import java.io.IOException;
 import java.util.List;
 
-import static java.util.Collections.unmodifiableList;
 import static org.opensearch.rest.RestRequest.Method.POST;
 
 public class RestStatBatteryAction extends BaseRestHandler {
@@ -26,7 +25,7 @@ public class RestStatBatteryAction extends BaseRestHandler {
 
     @Override
     public List<Route> routes() {
-        return unmodifiableList(List.of(
+        return (List.of(
                 new Route(POST, "/_plugins/stat_battery"))
         );
     }
