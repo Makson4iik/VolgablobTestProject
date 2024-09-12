@@ -17,15 +17,13 @@ import java.util.ArrayList;
 public class StatBatteryService {
     public static RestResponse buildResponse(String funcName, String indexName, NodeClient client) {
         try {
-            StatBatteryStore store = new StatBatteryStore(client);
+            BatteryStats stats = new BatteryStats(client);
 
-            ArrayList<Battery> docsInIndex = store.getAllDocsByIndex(indexName);
-
-            String result = BatteryStats.HandleValue(funcName, docsInIndex);
+            String result = stats.HandleValue(funcName, indexName);
 
             return new BytesRestResponse(RestStatus.OK, result);
         } catch (Exception e) {
-            return new BytesRestResponse(RestStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return new BytesRestResponse(RestStatus.INTERNAL_SERVER_ERROR, e.toString());
         }
     }
 }
