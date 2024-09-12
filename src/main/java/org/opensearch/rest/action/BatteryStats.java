@@ -64,7 +64,7 @@ public class BatteryStats {
             case MAX:
                 return Double.toString(maxBatStats(searchResponse));
             case VALUES:
-                return valuesBatStats(searchResponse, indexName).toString();
+                return valuesBatStats(searchResponse).toString();
             default:
                 throw new Exception("Unexpected error in handle function type: " + funcName);
         }
@@ -85,7 +85,7 @@ public class BatteryStats {
     }
 
     // values by 'host' field
-    private ArrayList<String> valuesBatStats(SearchResponse searchResponse, String indexName) {
+    private ArrayList<String> valuesBatStats(SearchResponse searchResponse) {
         ArrayList<String> hosts = new ArrayList<>();
         Terms aggregation = searchResponse.getAggregations().get("values" + HOST);
 
@@ -97,7 +97,7 @@ public class BatteryStats {
     }
 
     private SearchSourceBuilder composeAggregationBuilders(StatFunction statFunc) throws Exception {
-        AggregationBuilder aggBuilder = null;
+        AggregationBuilder aggBuilder;
         switch (statFunc) {
             case AVG:
                 aggBuilder = AggregationBuilders.

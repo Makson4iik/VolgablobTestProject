@@ -12,8 +12,6 @@ import org.opensearch.core.rest.RestStatus;
 import org.opensearch.rest.BytesRestResponse;
 import org.opensearch.rest.RestResponse;
 
-import java.util.ArrayList;
-
 public class StatBatteryService {
     public static RestResponse buildResponse(String funcName, String indexName, NodeClient client) {
         try {
